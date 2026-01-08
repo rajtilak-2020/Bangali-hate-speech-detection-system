@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bengali Hate Speech Detection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-section {
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 120px;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .clear-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .result-section {
+            margin-top: 30px;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+
+        .result-label {
+            font-size: 1.3em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .confidence-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            height: 30px;
+            margin: 10px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            transition: width 0.5s ease;
+        }
+
+        .probabilities {
+            margin-top: 20px;
+        }
+
+        .prob-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .prob-label {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .prob-value {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .loading.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background: #fee;
+            color: #c33;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .label-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .label-Religious {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .label-Geopolitical {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .label-Neutral {
+            background: #95e1d3;
+            color: #333;
+        }
+
+        .label-Personal {
+            background: #f38181;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Bengali Hate Speech Detection</h1>
+        <p class="subtitle">Analyze Bengali text and identify speech type</p>
+
+        <div class="input-section">
+            <label for="textInput">Enter Bengali Text:</label>
+            <textarea 
+                id="textInput" 
+                placeholder="এখানে বাংলা টেক্সট লিখুন... (Enter Bengali text here...)"
+                rows="5"
+            ></textarea>
+            <div class="button-group">
+                <button id="analyzeBtn" onclick="analyzeText()">Analyze Text</button>
+                <button class="clear-btn" onclick="clearText()">Clear</button>
+            </div>
+        </div>
+
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p style="margin-top: 10px; color: #666;">Analyzing text...</p>
+        </div>
+
+        <div class="error" id="error"></div>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-card">
+                <div class="result-label">
+                    Predicted Label: 
+                    <span id="predictedLabel" class="label-badge"></span>
+                </div>
+                <div>
+                    <strong>Confidence:</strong>
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" id="confidenceFill">0%</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-label">All Probabilities:</div>
+                <div class="probabilities" id="probabilities"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function analyzeText() {
+            const textInput = document.getElementById('textInput');
+            const text = textInput.value.trim();
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const resultSection = document.getElementById('resultSection');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+
+            // Clear previous results
+            error.classList.remove('show');
+            resultSection.classList.remove('show');
+
+            if (!text) {
+                showError('Please enter some text to analyze.');
+                return;
+            }
+
+            // Show loading
+            loading.classList.add('show');
+            analyzeBtn.disabled = true;
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+
+                const data = await response.json();
+
+                loading.classList.remove('show');
+                analyzeBtn.disabled = false;
+
+                if (!response.ok) {
+                    showError(data.error || 'An error occurred while analyzing the text.');
+                    return;
+                }
+
+                if (data.success) {
+                    displayResults(data);
+                } else {
+                    showError(data.error || 'Prediction failed.');
+                }
+            } catch (err) {
+                loading.classList.remove('show');
+                analyzeBtn.disabled = false;
+                showError('Network error: ' + err.message);
+            }
+        }
+
+        function displayResults(data) {
+            const resultSection = document.getElementById('resultSection');
+            const predictedLabel = document.getElementById('predictedLabel');
+            const confidenceFill = document.getElementById('confidenceFill');
+            const probabilities = document.getElementById('probabilities');
+
+            // Set predicted label
+            predictedLabel.textContent = data.predicted_label;
+            predictedLabel.className = 'label-badge label-' + data.predicted_label;
+
+            // Set confidence bar
+            const confidence = data.confidence;
+            confidenceFill.style.width = confidence + '%';
+            confidenceFill.textContent = confidence + '%';
+
+            // Display all probabilities
+            probabilities.innerHTML = '';
+            const sortedProbs = Object.entries(data.all_probabilities)
+                .sort((a, b) => b[1] - a[1]);
+
+            sortedProbs.forEach(([label, prob]) => {
+                const probItem = document.createElement('div');
+                probItem.className = 'prob-item';
+                probItem.innerHTML = `
+                    <span class="prob-label">${label}</span>
+                    <span class="prob-value">${prob}%</span>
+                `;
+                probabilities.appendChild(probItem);
+            });
+
+            // Show results
+            resultSection.classList.add('show');
+        }
+
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            document.getElementById('resultSection').classList.remove('show');
+            document.getElementById('error').classList.remove('show');
+        }
+
+        function showError(message) {
+            const error = document.getElementById('error');
+            error.textContent = message;
+            error.classList.add('show');
+        }
+
+        // Allow Enter key to submit (Ctrl+Enter)
+        document.getElementById('textInput').addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'Enter') {
+                analyzeText();
+            }
+        });
+    </script>
+</body>
+</html>
+
