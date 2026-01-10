@@ -613,7 +613,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 🙏 Acknowledgments
 
 - **Hugging Face** for the Transformers library
-- **Sagor Sarker** for the pre-trained Bengali BERT model (`sagorsarker/bangla-bert-base`)
 - **PyTorch** team for the deep learning framework
 - **UCI Machine Learning Repository** for providing the Bengali Hate Speech Detection Dataset
 
@@ -630,7 +629,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **Citation**: Please cite the UCI ML Repository when using this dataset
 
 **Technical References:**
-- **Bengali BERT Model**: `sagorsarker/bangla-bert-base` from Hugging Face
 - **Framework**: PyTorch and Transformers library
 - **Methodology**: Transfer learning with fine-tuning approach
 
