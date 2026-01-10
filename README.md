@@ -54,6 +54,8 @@ The project includes a complete end-to-end pipeline from data preprocessing to m
 
 **Dataset Source**: [Bengali Hate Speech Detection Dataset - UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/719/bengali+hate+speech+detection+dataset)
 
+**License**: Creative Commons Attribution 4.0 International (CC BY 4.0)
+
 The project uses the Bengali Hate Speech Detection Dataset from the UCI Machine Learning Repository. This dataset contains Bengali text samples labeled for hate speech classification across multiple categories.
 
 ### Dataset Distribution
@@ -255,31 +257,12 @@ xychart-beta
 
 ### Confusion Matrix Visualization
 
-```mermaid
-block-beta
-    columns 4
-    block:matrix
-        columns 4
-        A["Religious\n205"]:4
-        B["Geopolitical\n8"]:1
-        C["Neutral\n7"]:1
-        D["Personal\n5"]:1
-        
-        E["Religious\n6"]:1
-        F["Geopolitical\n210"]:4
-        G["Neutral\n5"]:1
-        H["Personal\n4"]:1
-        
-        I["Religious\n8"]:1
-        J["Geopolitical\n7"]:1
-        K["Neutral\n200"]:4
-        L["Personal\n10"]:1
-        
-        M["Religious\n6"]:1
-        N["Geopolitical\n5"]:1
-        O["Neutral\n16"]:1
-        P["Personal\n198"]:4
-```
+| Predicted → | Religious | Geopolitical | Neutral | Personal |
+|-------------|-----------|--------------|---------|----------|
+| **Religious** | **205** | 8 | 7 | 5 |
+| **Geopolitical** | 6 | **210** | 5 | 4 |
+| **Neutral** | 8 | 7 | **200** | 10 |
+| **Personal** | 6 | 5 | 16 | **198** |
 
 The model shows strong performance across all classes with minimal misclassifications. The confusion matrix reveals that most errors occur between semantically similar categories.
 
@@ -582,29 +565,18 @@ block-beta
 
 ## 👥 Team Members
 
-```mermaid
-mindmap
-  root((Bengali Hate Speech Detection Team))
-    Supervisor
-      Pradeepta Sir
-        Project Guide
-        Technical Mentor
-    Development Team
-      K Rajtilak
-        Lead Developer
-        ML Engineer
-      Jasmine Kaur
-        Data Scientist
-        Model Training
-      Chinmay Gabhne
-        Backend Developer
-        API Integration
-      Dibyashree Swain
-        Frontend Developer
-        UI/UX Design
-      Dibya Jyotee Swain
-        Testing Engineer
-        Quality Assurance
+### Project Team Structure
+
+```
+📋 Bengali Hate Speech Detection Team
+├── 👨🏫 Project Supervisor
+│   └── Pradeepta Sir (Project Guide & Technical Mentor)
+└── 💻 Development Team
+    ├── K Rajtilak (Lead Developer & ML Engineer)
+    ├── Jasmine Kaur (Data Scientist & Model Training)
+    ├── Chinmay Gabhne (Backend Developer & API Integration)
+    ├── Dibyashree Swain (Frontend Developer & UI/UX Design)
+    └── Dibya Jyotee Swain (Testing Engineer & Quality Assurance)
 ```
 
 ### Team Roles & Contributions
@@ -653,6 +625,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **Title**: Bengali Hate Speech Detection Dataset
 - **Repository**: UCI Machine Learning Repository
 - **URL**: https://archive.ics.uci.edu/dataset/719/bengali+hate+speech+detection+dataset
+- **License**: Creative Commons Attribution 4.0 International (CC BY 4.0)
 - **Description**: A comprehensive dataset for Bengali hate speech detection containing 4,500 labeled text samples across four categories
 - **Citation**: Please cite the UCI ML Repository when using this dataset
 
