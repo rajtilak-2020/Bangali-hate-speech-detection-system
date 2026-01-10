@@ -10,29 +10,9 @@ A state-of-the-art machine learning system for detecting and classifying hate sp
 
 ---
 
-## 📋 Table of Contents
-
-- [Abstract](#-abstract)
-- [Features](#-features)
-- [Dataset](#-dataset)
-- [Methodology](#-methodology)
-- [Model Architecture](#-model-architecture)
-- [Results](#-results)
-- [Installation](#-installation)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Web Interface](#-web-interface)
-- [Technical Details](#-technical-details)
-- [Future Work](#-future-work)
-- [Team Members](#-team-members)
-- [Contributing](#-contributing)
-- [License](#-license)
-
----
-
 ## 📖 Abstract
 
-Hate speech detection in low-resource languages like Bengali presents unique challenges due to limited labeled datasets and linguistic complexity. This project addresses these challenges by fine-tuning a pre-trained Bengali BERT model (`sagorsarker/bangla-bert-base`) on a curated dataset of Bengali text samples. The system achieves **91.2% accuracy** in classifying text into four categories: Religious, Geopolitical, Neutral, and Personal hate speech.
+Hate speech detection in low-resource languages like Bengali presents unique challenges due to limited labeled datasets and linguistic complexity. The system achieves **91.2% accuracy** in classifying text into four categories: Religious, Geopolitical, Neutral, and Personal hate speech.
 
 The project includes a complete end-to-end pipeline from data preprocessing to model deployment, featuring a modern web interface for real-time predictions. The system demonstrates the effectiveness of transfer learning for hate speech detection in resource-constrained scenarios.
 
@@ -120,15 +100,8 @@ flowchart LR
 - Sequence padding/truncation to 128 tokens
 - Label encoding for multi-class classification
 
-### 2. Model Selection
 
-- **Base Model**: `sagorsarker/bangla-bert-base`
-  - Pre-trained on large Bengali text corpus
-  - 12-layer transformer architecture
-  - 768-dimensional hidden states
-  - 110M parameters
-
-### 3. Training Strategy
+### 2. Training Strategy
 
 - **Transfer Learning**: Fine-tuning pre-trained Bengali BERT
 - **Optimization**: AdamW optimizer with learning rate 2e-5
@@ -139,7 +112,7 @@ flowchart LR
   - Epochs: 5 (with early stopping patience: 2)
   - Evaluation strategy: Per epoch
 
-### 4. Evaluation Metrics
+### 3. Evaluation Metrics
 
 - Accuracy
 - Precision (per class and macro-averaged)
@@ -192,7 +165,6 @@ sequenceDiagram
 
 | Parameter | Value |
 |-----------|-------|
-| Base Model | `sagorsarker/bangla-bert-base` |
 | Hidden Size | 768 |
 | Number of Layers | 12 |
 | Attention Heads | 12 |
@@ -280,7 +252,7 @@ The model shows strong performance across all classes with minimal misclassifica
 ### Step 1: Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/bengali-hate-speech-detection.git
+git clone https://github.com/rajtilak-2020/bengali-hate-speech-detection.git
 cd bengali-hate-speech-detection
 ```
 
@@ -433,9 +405,7 @@ The project includes a modern, responsive web interface with the following featu
 - **📈 Probability Distribution**: Bar chart showing all class probabilities
 - **🔄 Clear Function**: Easy reset functionality
 
-### Interface Screenshots
-
-*Note: Add screenshots of your web interface here*
+### Interface
 
 1. **Main Interface**: Clean, modern design with gradient background
 2. **Results Display**: Shows predicted label with confidence percentage
@@ -581,21 +551,8 @@ block-beta
 
 ---
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
 
 ## 🙏 Acknowledgments
-
-- **Hugging Face** for the Transformers library
 - **PyTorch** team for the deep learning framework
 - **UCI Machine Learning Repository** for providing the Bengali Hate Speech Detection Dataset
 
@@ -609,7 +566,6 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 - **URL**: https://archive.ics.uci.edu/dataset/719/bengali+hate+speech+detection+dataset
 - **License**: Creative Commons Attribution 4.0 International (CC BY 4.0)
 - **Description**: A comprehensive dataset for Bengali hate speech detection containing 4,500 labeled text samples across four categories
-- **Citation**: Please cite the UCI ML Repository when using this dataset
 
 **Technical References:**
 - **Framework**: PyTorch and Transformers library
