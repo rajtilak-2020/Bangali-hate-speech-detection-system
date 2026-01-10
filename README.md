@@ -572,23 +572,12 @@ block-beta
 ├── 👨🏫 Project Supervisor
 │   └── Pradeepta Sir (Project Guide & Technical Mentor)
 └── 💻 Development Team
-    ├── K Rajtilak (Lead Developer & ML Engineer)
-    ├── Jasmine Kaur (Data Scientist & Model Training)
-    ├── Chinmay Gabhne (Backend Developer & API Integration)
-    ├── Dibyashree Swain (Frontend Developer & UI/UX Design)
-    └── Dibya Jyotee Swain (Testing Engineer & Quality Assurance)
+    ├── K Rajtilak
+    ├── Jasmine Kaur
+    ├── Chinmay Gabhne
+    ├── Dibyashree Swain
+    └── Dibya Jyotee Swain
 ```
-
-### Team Roles & Contributions
-
-| Team Member | Role | Primary Contributions |
-|-------------|------|----------------------|
-| **Pradeepta Sir** | 👨🏫 Project Supervisor | Project guidance, technical mentorship, research direction |
-| **K Rajtilak** | 💻 Lead Developer | Model architecture, training pipeline, project coordination |
-| **Jasmine Kaur** | 📊 Data Scientist | Data preprocessing, feature engineering, model evaluation |
-| **Chinmay Gabhne** | ⚙️ Backend Developer | Flask API development, model deployment, server setup |
-| **Dibyashree Swain** | 🎨 Frontend Developer | Web interface design, user experience, responsive layout |
-| **Dibya Jyotee Swain** | 🧪 Testing Engineer | Model testing, validation, quality assurance, documentation |
 
 ---
 
