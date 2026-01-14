@@ -545,7 +545,7 @@ block-beta
     ├── K Rajtilak
     ├── Jasmine Kaur
     ├── Chinmay Gabhne
-    ├── Dibyashree Swain
+    ├── Dibyashree Acharya
     └── Dibya Jyotee Swain
 ```
 
